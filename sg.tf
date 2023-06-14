@@ -3,7 +3,7 @@ resource "aws_security_group" "this" {
   description = "Allow SSH and HTTP inbound traffic, all outbound traffic"
 
   # Use provided VPC ID or default VPC ID
-  vpc_id = var.vpc_id != "" ? var.vpc_id : data.aws_vpc.default.id
+  # vpc_id = var.vpc_id != "" ? var.vpc_id : data.aws_vpc.default.id
 
   # Allow SSH inbound traffic on port 22
   ingress {
