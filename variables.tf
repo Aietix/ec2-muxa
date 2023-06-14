@@ -4,8 +4,8 @@ variable "region" {
   default     = "eu-central-1"
 }
 
-variable "vpc_id" {
-  description = "The VPC ID to launch the instance into. If not provided, the default VPC will be used."
+variable "subnet_id" {
+  description = "The Subnet ID to launch the instance into. If not provided, the first subnet in the default VPC will be used"
   type        = string
   default     = ""
 }
