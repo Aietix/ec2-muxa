@@ -8,7 +8,7 @@ resource "aws_instance" "this" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.this.id]
   key_name               = var.use_key_pair ? aws_key_pair.this.key_name : null
-  user_data              = file("./user_data.sh")
+  user_data              = fileexists("user_data.sh") ? file("user_data.sh") : null
 
   tags = {
     Name = var.tags
