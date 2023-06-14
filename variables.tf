@@ -19,7 +19,7 @@ variable "ami_type" {
 variable "instance_type" {
   description = "The type of EC2 instance to use"
   type        = string
-  default     = "t3.micro"
+  default     = "t2.micro"
 }
 
 variable "assign_eip" {
