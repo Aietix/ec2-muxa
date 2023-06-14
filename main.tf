@@ -4,11 +4,13 @@ provider "aws" {
 
 # Define an EC2 instance
 resource "aws_instance" "this" {
-  ami                    = var.ami_type == "amazon" ? data.aws_ami.amazon.id : data.aws_ami.ubuntu.id
-  instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.this.id]
-  key_name               = var.use_key_pair ? aws_key_pair.this.key_name : null
-  user_data              = fileexists("user_data.sh") ? file("user_data.sh") : null
+  ami                         = var.ami_type == "amazon" ? data.aws_ami.amazon.id : data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  vpc_security_group_ids      = [aws_security_group.this.id]
+  key_name                    = var.use_key_pair ? aws_key_pair.this.key_name : null
+  user_data                   = fileexists("user_data.sh") ? file("user_data.sh") : null
+  subnet_id                   = var.subnet_id != "" ? var.subnet_id : tolist(data.aws_subnets.default.ids)[0]
+  associate_public_ip_address = true
 
   tags = {
     Name = var.tags
