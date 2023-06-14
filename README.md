@@ -1,22 +1,23 @@
 
-This Terraform code allows you to create an EC2 instance on AWS with various customizable options. It provides the flexibility to choose the latest Ubuntu or Amazon Machine Image (AMI), enables SSH access using your public key, assigns an Elastic IP address, and allows for the selection of either the default VPC or a specific VPC.
+This Terraform code allows you to create an EC2 instance on AWS with various customizable options. It provides the flexibility to choose the latest Ubuntu or Amazon Machine Image (AMI), enables SSH access using your public key, assigns an Elastic IP address, You can specify the Subnet ID to launch the instance into. Otherwise, the first subnet in the default VPC will be used.
 
 Inbound traffic on port **22** and port **80** will be opened,  All outbound traffic is allowed by default.
 
 You can create a **user_data.sh** file where you can add bash commands. This file will be used as a bootstrap script during EC2 instance creation.
 
-
+The default user for Amazon AMI is: **ec2-user**
+For Ubuntu AMI, the default user is: **ubuntu**
 
 
 ```
 module "ec2-muxa" {
   source = "github.com/Aietix/ec2-muxa"
 
-  region        = "eu-central-1"      # The AWS region for creating resources
+  region        = "us-east-1"         # The AWS region for creating resources
   ami_type      = "ubuntu"            # Specify 'ubuntu' or 'amazon' to select the respective AMI.
   instance_type = "t2.micro"          # the type of EC2 instance to use
+  subnet_id     = ""                  # The Subnet ID to launch the instance into. If not provided, the first subnet in the default VPC will be used
   assign_eip    = false               # Whether to assign an Elastic IP to the instance
-  vpc_id        = ""                  # The VPC ID to launch the instance into. If not provided, the default VPC will be used.
   use_key_pair  = true                # Whether to use a SSH key pair for the instance connection
   public_key    = "~/.ssh/id_rsa.pub" # Path to the SSH public key
   key_name      = "ec2-test"          # The name of the key pair for SSH access
