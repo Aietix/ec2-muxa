@@ -8,6 +8,8 @@ Inbound traffic on port 22 (SSH) and port 80 (HTTP) will be opened,  All outboun
 You can create a **user_data.sh** file where you can add bash commands. This file will be used as a bootstrap script during EC2 instance creation.
 
 
+
+
 ```
 module "ec2-muxa" {
   source = "github.com/Aietix/ec2-muxa"
