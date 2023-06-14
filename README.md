@@ -1,7 +1,7 @@
 
 This Terraform code allows you to create an EC2 instance on AWS with various customizable options. It provides the flexibility to choose the latest Ubuntu or Amazon Machine Image (AMI), enables SSH access using your public key, assigns an Elastic IP address, and allows for the selection of either the default VPC or a specific VPC.
 
-Inbound traffic on port **22**** and port **80** will be opened,  All outbound traffic is allowed by default.
+Inbound traffic on port **22** and port **80** will be opened,  All outbound traffic is allowed by default.
 
 You can create a **user_data.sh** file where you can add bash commands. This file will be used as a bootstrap script during EC2 instance creation.
 
