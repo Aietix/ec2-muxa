@@ -1,7 +1,11 @@
 variable "region" {
   description = "The AWS region for creating resources"
   type        = string
-  default     = "eu-central-1"
+
+  validation {
+    condition     = var.region != ""
+    error_message = "The region variable must not be empty."
+  }
 }
 
 variable "subnet_id" {
@@ -13,7 +17,11 @@ variable "subnet_id" {
 variable "ami_type" {
   description = "Specify 'ubuntu' or 'amazon' to select the respective AMI."
   type        = string
-  default     = "ubuntu"
+
+  validation {
+    condition     = contains(["amazon", "ubuntu"], lower(var.ami_type))
+    error_message = "The ami_type must be 'amazon' or 'ubuntu'."
+  }
 }
 
 variable "instance_type" {
@@ -25,13 +33,13 @@ variable "instance_type" {
 variable "assign_eip" {
   description = "Whether to assign an Elastic IP to the instance"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "use_key_pair" {
   description = "Whether to use a SSH key pair for the instance connection"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "public_key" {
@@ -43,11 +51,17 @@ variable "public_key" {
 variable "key_name" {
   description = "The name of the key pair for SSH access"
   type        = string
-  default     = "ec2-test"
+  default     = ""
 }
 
-variable "tags" {
-  description = "Tags to assign to resources"
+variable "name" {
+  description = "Name to assign to resources"
   type        = string
-  default     = "ec2-test"
+  default     = ""
+}
+
+variable "public_ip" {
+  description = "Custom argument; likely controls if a public IP should be assigned"
+  type        = bool
+  default     = false
 }
