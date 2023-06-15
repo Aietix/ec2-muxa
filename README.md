@@ -13,15 +13,16 @@ For Ubuntu AMI, the default user is: **ubuntu**
 module "ec2-muxa" {
   source = "github.com/Aietix/ec2-muxa"
 
-  region        = "us-east-1"         # The AWS region for creating resources
-  ami_type      = "ubuntu"            # Specify 'ubuntu' or 'amazon' to select the respective AMI.
-  instance_type = "t2.micro"          # the type of EC2 instance to use
+  region        = "us-east-1"         # AWS region
+  ami_type      = "Amazon"            # 'ubuntu' or 'amazon'
+  instance_type = "t2.micro"          # EC2 instance type
   subnet_id     = ""                  # The Subnet ID to launch the instance into. If not provided, the first subnet in the default VPC will be used
-  assign_eip    = false               # Whether to assign an Elastic IP to the instance
-  use_key_pair  = true                # Whether to use a SSH key pair for the instance connection
-  public_key    = "~/.ssh/id_rsa.pub" # Path to the SSH public key
-  key_name      = "ec2-test"          # The name of the key pair for SSH access
-  tags          = "ec2-test"          # Tags to assign to resources
+  assign_eip    = false               # Assign Elastic IP
+  public_ip     = true                # Custom; likely controls public IP assignment
+  use_key_pair  = true                # Use SSH key pair
+  public_key    = "~/.ssh/id_rsa.pub" # SSH public key path on your local machine
+  key_name      = "ec2-test"          # SSH key pair name
+  name          = "ec2-test"          # Resource tags
 }
 
 
@@ -39,6 +40,7 @@ output "linux_image" {
   description = "Type of Linux AMI used (Amazon or Ubuntu)."
   value       = module.ec2-muxa.linux_image
 }
+
 ```
 
 
