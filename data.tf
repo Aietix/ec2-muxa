@@ -1,6 +1,7 @@
 # Check if subnet_id is provided; if not, then fetch the default VPC's subnet ID
 locals {
   is_subnet_id_provided = var.subnet_id != "" ? true : false
+  ami_type              = lower(var.ami_type)
 }
 
 # Fetch the default VPC
@@ -33,7 +34,7 @@ locals {
 
 # Fetch the most recent Amazon Linux AMI if the ami_type variable is set to "amazon"
 data "aws_ami" "amazon" {
-  count = var.ami_type == "amazon" ? 1 : 0
+  count = local.ami_type == "amazon" ? 1 : 0
 
   most_recent = true
 
@@ -53,7 +54,7 @@ data "aws_ami" "amazon" {
 
 # Fetch the most recent Ubuntu AMI if the ami_type variable is set to "ubuntu"
 data "aws_ami" "ubuntu" {
-  count       = var.ami_type == "ubuntu" ? 1 : 0
+  count       = local.ami_type == "ubuntu" ? 1 : 0
   most_recent = true
 
   filter {
