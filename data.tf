@@ -11,7 +11,7 @@ data "aws_vpc" "default" {
 
 # Fetch the default subnets if subnet_id is not provided
 data "aws_subnets" "default" {
-  count   = local.is_subnet_id_provided ? 0 : 1
+  count = local.is_subnet_id_provided ? 0 : 1
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default[0].id]
@@ -53,7 +53,7 @@ data "aws_ami" "amazon" {
 
 # Fetch the most recent Ubuntu AMI if the ami_type variable is set to "ubuntu"
 data "aws_ami" "ubuntu" {
-  count = var.ami_type == "ubuntu" ? 1 : 0
+  count       = var.ami_type == "ubuntu" ? 1 : 0
   most_recent = true
 
   filter {
