@@ -1,20 +1,37 @@
+# Check if subnet_id is provided; if not, then fetch the default VPC's subnet ID
+locals {
+  is_subnet_id_provided = var.subnet_id != "" ? true : false
+}
+
 # Fetch the default VPC
 data "aws_vpc" "default" {
+  count   = local.is_subnet_id_provided ? 0 : 1
   default = true
 }
 
+# Fetch the default subnets if subnet_id is not provided
 data "aws_subnets" "default" {
+  count   = local.is_subnet_id_provided ? 0 : 1
   filter {
     name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
+    values = [data.aws_vpc.default[0].id]
   }
 }
 
+# Fetch the first subnet
 data "aws_subnet" "default" {
-  for_each = toset(data.aws_subnets.default.ids)
-  id       = each.value
+  count = local.is_subnet_id_provided ? 0 : 1
+  id    = local.is_subnet_id_provided ? null : tolist(data.aws_subnets.default[0].ids)[0]
 }
 
+
+# Determine subnet_id to use
+locals {
+  subnet_id = local.is_subnet_id_provided ? var.subnet_id : data.aws_subnet.default[0].id
+}
+
+
+# Fetch the most recent Amazon Linux AMI if the ami_type variable is set to "amazon"
 data "aws_ami" "amazon" {
   count = var.ami_type == "amazon" ? 1 : 0
 
@@ -33,6 +50,8 @@ data "aws_ami" "amazon" {
   owners = ["amazon"]
 }
 
+
+# Fetch the most recent Ubuntu AMI if the ami_type variable is set to "ubuntu"
 data "aws_ami" "ubuntu" {
   count = var.ami_type == "ubuntu" ? 1 : 0
   most_recent = true
