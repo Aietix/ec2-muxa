@@ -10,5 +10,5 @@ output "ip_address" {
 
 output "linux_image" {
   description = "Type of Linux AMI used (Amazon or Ubuntu)."
-  value       = var.ami_type == "amazon" ? "Amazon Linux AMI used" : "Ubuntu Linux AMI used"
+  value       = local.ami_type == "amazon" ? "Amazon Linux AMI used" : "Ubuntu Linux AMI used"
 }
