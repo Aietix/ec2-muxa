@@ -16,6 +16,8 @@ data "aws_subnet" "default" {
 }
 
 data "aws_ami" "amazon" {
+  count = var.ami_type == "amazon" ? 1 : 0
+
   most_recent = true
 
   filter {
@@ -32,6 +34,7 @@ data "aws_ami" "amazon" {
 }
 
 data "aws_ami" "ubuntu" {
+  count = var.ami_type == "ubuntu" ? 1 : 0
   most_recent = true
 
   filter {
