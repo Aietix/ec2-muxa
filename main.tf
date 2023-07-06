@@ -26,6 +26,6 @@ resource "aws_eip" "this" {
 # Define an SSH key pair for accessing the instance
 resource "aws_key_pair" "this" {
   count      = var.use_key_pair ? 1 : 0
-  key_name   = var.key_name
+  key_name   = format("key-%s", var.name)
   public_key = file(var.public_key)
 }

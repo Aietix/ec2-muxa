@@ -48,12 +48,6 @@ variable "public_key" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "key_name" {
-  description = "The name of the key pair for SSH access"
-  type        = string
-  default     = ""
-}
-
 variable "name" {
   description = "Name to assign to resources"
   type        = string
@@ -64,4 +58,16 @@ variable "public_ip" {
   description = "Custom argument; likely controls if a public IP should be assigned"
   type        = bool
   default     = false
+}
+
+variable "ingress" {
+  description = "Ingress rules in the format 'port,protocol,cidr;port,protocol,cidr;...'"
+  type        = string
+  default     = ""
+}
+
+variable "egress" {
+  description = "Ingress rules in the format 'port,protocol,cidr;port,protocol,cidr;...'"
+  type        = string
+  default     = ""
 }
