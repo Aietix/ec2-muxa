@@ -5,10 +5,13 @@ This Terraform code allows you to create an EC2 instance on AWS with various cus
 - You can specify the Subnet ID to launch the instance into. Otherwise, the first subnet in the default VPC will be used.
 - Ingress and Egress rules in format "port,protocol,cidr;port,protocol,cidr".
 
-You can create a **user_data.sh** file where you can add bash commands. This file will be used as a bootstrap script during EC2 instance creation.
+You can create a **user_data.sh** file where you can add bash commands.  
+This file will be used as a bootstrap script during EC2 instance creation.
 
-The default user for Amazon AMI is: **ec2-user**
-For Ubuntu AMI, the default user is: **ubuntu**
+- Amazon AMI users: **ec2-user**  
+- Ubuntu AMI users: **ubuntu**
+
+
 
 
 ```
