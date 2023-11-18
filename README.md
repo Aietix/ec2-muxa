@@ -28,7 +28,7 @@ module "ec2-muxa" {
   use_key_pair  = true                                 # Use SSH key pair
   public_key    = "~/.ssh/id_rsa.pub"                  # SSH public key path on your local machine
   ingress       = "22,tcp,0.0.0.0/0;443,tcp,0.0.0.0/0" # Ingress rules in format "port,protocol,cidr;port,protocol,cidr"
-  egress        = ""                                   # Egress rules in format "port,protocol,cidr;port,protocol,cidr"
+  egress       = "0-65535,tcp,0.0.0.0/0;0-65535,udp,0.0.0.0/0" # Ingress rules in format "port,protocol,cidr;port,protocol,cidr"
 }
 
 
